@@ -19,8 +19,8 @@ package com.example.android.architecture.blueprints.todoapp.tasks;
 import com.example.android.architecture.blueprints.todoapp.data.Task;
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource.LoadTasksCallback;
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
-import com.google.common.collect.Lists;
 
+import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -72,8 +72,8 @@ public class TasksPresenterTest {
         when(mTasksView.isActive()).thenReturn(true);
 
         // We start the tasks to 3, with one active and two completed
-        TASKS = Lists.newArrayList(new Task("Title1", "Description1"),
-                new Task("Title2", "Description2", true), new Task("Title3", "Description3", true));
+        TASKS = Arrays.asList(new Task("Title1", "Description1"),
+            new Task("Title2", "Description2", true), new Task("Title3", "Description3", true));
     }
 
     @Test

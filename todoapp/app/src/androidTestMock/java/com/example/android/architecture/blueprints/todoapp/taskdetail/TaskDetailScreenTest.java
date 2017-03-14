@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.TestUtils;
@@ -44,7 +43,6 @@ import static org.hamcrest.core.IsNot.not;
  * Tests for the tasks screen, the main screen which contains a list of all tasks.
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class TaskDetailScreenTest {
 
     private static String TASK_TITLE = "ATSL";
@@ -97,12 +95,12 @@ public class TaskDetailScreenTest {
      */
     private void startActivityWithWithStubbedTask(Task task) {
         // Add a task stub to the fake service api layer.
-        TasksRepository.destroyInstance();
-        FakeTasksRemoteDataSource.getInstance().addTasks(task);
+        TasksRepository.Companion.destroyInstance();
+        FakeTasksRemoteDataSource.INSTANCE.addTasks(task);
 
         // Lazily start the Activity from the ActivityTestRule this time to inject the start Intent
         Intent startIntent = new Intent();
-        startIntent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, task.getId());
+        startIntent.putExtra(TaskDetailActivity.Companion.getEXTRA_TASK_ID(), task.getId());
         mTaskDetailActivityTestRule.launchActivity(startIntent);
     }
 
@@ -111,9 +109,9 @@ public class TaskDetailScreenTest {
         loadActiveTask();
 
         // Check that the task title and description are displayed
-        onView(withId(R.id.task_detail_title)).check(matches(withText(TASK_TITLE)));
-        onView(withId(R.id.task_detail_description)).check(matches(withText(TASK_DESCRIPTION)));
-        onView(withId(R.id.task_detail_complete)).check(matches(not(isChecked())));
+        onView(withId(R.id.taskDetailTitle)).check(matches(withText(TASK_TITLE)));
+        onView(withId(R.id.taskDetailDescription)).check(matches(withText(TASK_DESCRIPTION)));
+        onView(withId(R.id.taskDetailComplete)).check(matches(not(isChecked())));
     }
 
     @Test
@@ -121,9 +119,9 @@ public class TaskDetailScreenTest {
         loadCompletedTask();
 
         // Check that the task title and description are displayed
-        onView(withId(R.id.task_detail_title)).check(matches(withText(TASK_TITLE)));
-        onView(withId(R.id.task_detail_description)).check(matches(withText(TASK_DESCRIPTION)));
-        onView(withId(R.id.task_detail_complete)).check(matches(isChecked()));
+        onView(withId(R.id.taskDetailTitle)).check(matches(withText(TASK_TITLE)));
+        onView(withId(R.id.taskDetailDescription)).check(matches(withText(TASK_DESCRIPTION)));
+        onView(withId(R.id.taskDetailComplete)).check(matches(isChecked()));
     }
 
     @Test
@@ -136,8 +134,8 @@ public class TaskDetailScreenTest {
         TestUtils.rotateOrientation(mTaskDetailActivityTestRule.getActivity());
 
         // Check that the task is shown
-        onView(withId(R.id.task_detail_title)).check(matches(withText(TASK_TITLE)));
-        onView(withId(R.id.task_detail_description)).check(matches(withText(TASK_DESCRIPTION)));
+        onView(withId(R.id.taskDetailTitle)).check(matches(withText(TASK_TITLE)));
+        onView(withId(R.id.taskDetailDescription)).check(matches(withText(TASK_DESCRIPTION)));
 
         // Check delete menu item is displayed and is unique
         onView(withId(R.id.menu_delete)).check(matches(isDisplayed()));

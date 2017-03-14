@@ -24,23 +24,23 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <CheckBox
-        android:id="@+id/task_detail_complete"
+        android:id="@+id/taskDetailComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
     <TextView
-        android:id="@+id/task_detail_title"
-        android:layout_toRightOf="@id/task_detail_complete"
+        android:id="@+id/taskDetailTitle"
+        android:layout_toRightOf="@id/taskDetailComplete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
-        android:id="@+id/task_detail_description"
-        android:layout_toRightOf="@id/task_detail_complete"
-        android:layout_below="@id/task_detail_title"
+        android:id="@+id/taskDetailDescription"
+        android:layout_toRightOf="@id/taskDetailComplete"
+        android:layout_below="@id/taskDetailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Medium Text"

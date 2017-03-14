@@ -20,8 +20,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 
@@ -55,7 +53,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.example.android.architecture.blueprints.todoapp.TestUtils.getCurrentActivity;
-import static com.google.common.base.Preconditions.checkArgument;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.IsNot.not;
 
@@ -63,7 +60,6 @@ import static org.hamcrest.core.IsNot.not;
  * Tests for the tasks screen, the main screen which contains a list of all tasks.
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class TasksScreenTest {
 
     private final static String TITLE1 = "TITLE1";
@@ -90,7 +86,7 @@ public class TasksScreenTest {
                 protected void beforeActivityLaunched() {
                     super.beforeActivityLaunched();
                     // Doing this in @Before generates a race condition.
-                    Injection.provideTasksRepository(InstrumentationRegistry.getTargetContext())
+                    Injection.INSTANCE.INSTANCE.provideTasksRepository(InstrumentationRegistry.getTargetContext())
                         .deleteAllTasks();
                 }
             };
@@ -107,7 +103,6 @@ public class TasksScreenTest {
      * @return Matcher that matches text in the given view
      */
     private Matcher<View> withItemText(final String itemText) {
-        checkArgument(!TextUtils.isEmpty(itemText), "itemText cannot be null or empty");
         return new TypeSafeMatcher<View>() {
             @Override
             public boolean matchesSafely(View item) {
@@ -129,7 +124,7 @@ public class TasksScreenTest {
         onView(withId(R.id.fab_add_task)).perform(click());
 
         // Check if the add task screen is displayed
-        onView(withId(R.id.add_task_title)).check(matches(isDisplayed()));
+        onView(withId(R.id.addTaskTitle)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -147,9 +142,9 @@ public class TasksScreenTest {
         String editTaskDescription = "New Description";
 
         // Edit task title and description
-        onView(withId(R.id.add_task_title))
+        onView(withId(R.id.addTaskTitle))
                 .perform(replaceText(editTaskTitle), closeSoftKeyboard()); // Type new task title
-        onView(withId(R.id.add_task_description)).perform(replaceText(editTaskDescription),
+        onView(withId(R.id.addTaskDescription)).perform(replaceText(editTaskDescription),
                 closeSoftKeyboard()); // Type new task description and close the keyboard
 
         // Save the task
@@ -313,7 +308,7 @@ public class TasksScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in task details screen
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
@@ -335,7 +330,7 @@ public class TasksScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in task details screen
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
@@ -356,10 +351,10 @@ public class TasksScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in task details screen
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click again to restore it to original state
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
@@ -381,10 +376,10 @@ public class TasksScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in task details screen
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click again to restore it to original state
-        onView(withId(R.id.task_detail_complete)).perform(click());
+        onView(withId(R.id.taskDetailComplete)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
@@ -448,14 +443,14 @@ public class TasksScreenTest {
         onView(withId(R.id.fab_edit_task)).perform(click());
 
         // Change task title (but don't save)
-        onView(withId(R.id.add_task_title))
+        onView(withId(R.id.addTaskTitle))
                 .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new task title
 
         // Rotate the screen
         TestUtils.rotateOrientation(getCurrentActivity());
 
         // Verify task title is restored
-        onView(withId(R.id.add_task_title)).check(matches(withText(TITLE2)));
+        onView(withId(R.id.addTaskTitle)).check(matches(withText(TITLE2)));
     }
 
     @Test
@@ -474,9 +469,9 @@ public class TasksScreenTest {
         TestUtils.rotateOrientation(getCurrentActivity());
 
         // Edit task title and description
-        onView(withId(R.id.add_task_title))
+        onView(withId(R.id.addTaskTitle))
                 .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new task title
-        onView(withId(R.id.add_task_description)).perform(replaceText(DESCRIPTION),
+        onView(withId(R.id.addTaskDescription)).perform(replaceText(DESCRIPTION),
                 closeSoftKeyboard()); // Type new task description and close the keyboard
 
         // Save the task
@@ -509,9 +504,9 @@ public class TasksScreenTest {
         onView(withId(R.id.fab_add_task)).perform(click());
 
         // Add task title and description
-        onView(withId(R.id.add_task_title)).perform(typeText(title),
+        onView(withId(R.id.addTaskTitle)).perform(typeText(title),
                 closeSoftKeyboard()); // Type new task title
-        onView(withId(R.id.add_task_description)).perform(typeText(description),
+        onView(withId(R.id.addTaskDescription)).perform(typeText(description),
                 closeSoftKeyboard()); // Type new task description and close the keyboard
 
         // Save the task
@@ -520,10 +515,6 @@ public class TasksScreenTest {
 
     private void clickCheckBoxForTask(String title) {
         onView(allOf(withId(R.id.complete), hasSibling(withText(title)))).perform(click());
-    }
-
-    private String getText(int stringId) {
-        return mTasksActivityTestRule.getActivity().getResources().getString(stringId);
     }
 
     private String getToolbarNavigationContentDescription() {

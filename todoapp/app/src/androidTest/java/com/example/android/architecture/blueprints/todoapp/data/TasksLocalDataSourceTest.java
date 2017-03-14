@@ -58,7 +58,7 @@ public class TasksLocalDataSourceTest {
 
     @Before
     public void setup() {
-         mLocalDataSource = TasksLocalDataSource.getInstance(
+         mLocalDataSource = TasksLocalDataSource.Companion.getInstance(
                  InstrumentationRegistry.getTargetContext());
     }
 
@@ -110,7 +110,7 @@ public class TasksLocalDataSourceTest {
             @Override
             public void onTaskLoaded(Task task) {
                 assertThat(task, is(newTask));
-                assertThat(task.isCompleted(), is(true));
+                assertThat(task.getCompleted(), is(true));
             }
 
             @Override
@@ -139,7 +139,7 @@ public class TasksLocalDataSourceTest {
         verify(callback, never()).onDataNotAvailable();
         verify(callback).onTaskLoaded(newTask);
 
-        assertThat(newTask.isCompleted(), is(false));
+        assertThat(newTask.getCompleted(), is(false));
     }
 
     @Test

@@ -68,7 +68,7 @@ public class AppNavigationTest {
                 .perform(open()); // Open Drawer
 
         // Start statistics screen.
-        onView(withId(R.id.nav_view))
+        onView(withId(R.id.navigationView))
                 .perform(navigateTo(R.id.statistics_navigation_menu_item));
 
         // Check that statistics Activity was opened.
@@ -83,7 +83,7 @@ public class AppNavigationTest {
                 .perform(open()); // Open Drawer
 
         // Start statistics screen.
-        onView(withId(R.id.nav_view))
+        onView(withId(R.id.navigationView))
                 .perform(navigateTo(R.id.statistics_navigation_menu_item));
 
         // Open Drawer to click on navigation.
@@ -92,7 +92,7 @@ public class AppNavigationTest {
                 .perform(open()); // Open Drawer
 
         // Start tasks list screen.
-        onView(withId(R.id.nav_view))
+        onView(withId(R.id.navigationView))
                 .perform(navigateTo(R.id.list_navigation_menu_item));
 
         // Check that Tasks Activity was opened.
