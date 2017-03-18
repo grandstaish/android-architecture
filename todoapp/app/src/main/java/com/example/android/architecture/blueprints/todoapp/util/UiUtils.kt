@@ -40,7 +40,7 @@ fun <T: Fragment> FragmentManager.addFragment(fragment: T, frameId: Int): T {
 }
 
 @Suppress("UNCHECKED_CAST") // Cleaner calling code.
-fun <T: Fragment> FragmentManager.getOrElse(@IdRes id: Int, f: FragmentManager.(Int) -> (T)) : T {
+inline fun <T: Fragment> FragmentManager.getOrElse(@IdRes id: Int, f: FragmentManager.(Int) -> (T)) : T {
   return (this.findFragmentById(id) ?: f(id)) as T
 }
 
