@@ -27,6 +27,7 @@ import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTa
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
 import com.example.android.architecture.blueprints.todoapp.util.addFragment
 import com.example.android.architecture.blueprints.todoapp.util.getOrElse
+import com.example.android.architecture.blueprints.todoapp.util.set
 import kotlinx.android.synthetic.main.addtask_act.*
 
 /**
@@ -47,17 +48,16 @@ class AddEditTaskActivity : AppCompatActivity() {
       setDisplayShowHomeEnabled(true)
     }
 
-    val taskId = intent.getStringExtra(ARGUMENT_EDIT_TASK_ID)
+    val taskId : String? = intent.getStringExtra(ARGUMENT_EDIT_TASK_ID)
 
     val addEditTaskFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
       val result = AddEditTaskFragment.newInstance()
-      if (intent.hasExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID)) {
-        actionBar.setTitle(R.string.edit_task)
-        val bundle = Bundle()
-        bundle.putString(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID, taskId)
-        result.arguments = bundle
-      } else {
-        actionBar.setTitle(R.string.add_task)
+      val title = if (taskId == null) R.string.edit_task else R.string.add_task
+      actionBar.setTitle(title)
+      taskId?.let { taskId ->
+        result.arguments = Bundle().apply {
+          set(ARGUMENT_EDIT_TASK_ID to taskId)
+        }
       }
       addFragment(result, id)
     }

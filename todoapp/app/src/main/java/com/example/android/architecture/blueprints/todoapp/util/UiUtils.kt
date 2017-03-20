@@ -17,6 +17,7 @@
 package com.example.android.architecture.blueprints.todoapp.util
 
 import android.content.Context
+import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
@@ -46,6 +47,10 @@ inline fun <T: Fragment> FragmentManager.getOrElse(@IdRes id: Int, f: FragmentMa
 
 fun View?.compatCanScrollUp() : Boolean {
   return ViewCompat.canScrollVertically(this, -1)
+}
+
+fun Bundle.set(value : Pair<String, String>) {
+  putString(value.first, value.second)
 }
 
 fun Fragment.compatGetColor(@ColorRes id: Int) = activity.compatGetColor(id)
