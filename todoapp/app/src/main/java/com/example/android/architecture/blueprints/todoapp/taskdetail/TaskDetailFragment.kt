@@ -16,7 +16,7 @@
 
 package com.example.android.architecture.blueprints.todoapp.taskdetail
 
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -31,6 +31,7 @@ import android.view.ViewGroup
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskFragment
+import com.example.android.architecture.blueprints.todoapp.util.set
 import com.example.android.architecture.blueprints.todoapp.util.showSnackbar
 import kotlinx.android.synthetic.main.taskdetail_frag.*
 
@@ -129,7 +130,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     // If the task was edited successfully, go back to the list.
-    if (requestCode == REQUEST_EDIT_TASK && resultCode == Activity.RESULT_OK) {
+    if (requestCode == REQUEST_EDIT_TASK && resultCode == RESULT_OK) {
       activity.finish()
     }
   }
@@ -144,19 +145,17 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     taskDetailDescription.text = getString(R.string.no_data)
   }
 
-  override val isActive: Boolean
-    get() = isAdded
+  override val isActive = isAdded
 
   companion object {
     private val ARGUMENT_TASK_ID = "TASK_ID"
     private val REQUEST_EDIT_TASK = 1
 
-    fun newInstance(taskId: String): TaskDetailFragment {
-      return TaskDetailFragment().apply {
-        arguments = Bundle().apply {
-          putString(ARGUMENT_TASK_ID, taskId)
+    fun newInstance(taskId: String) =
+        TaskDetailFragment().apply {
+          arguments = Bundle().apply {
+            set(ARGUMENT_TASK_ID to taskId)
+          }
         }
-      }
-    }
   }
 }
