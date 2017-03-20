@@ -80,8 +80,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     addTaskDescription.setText(description)
   }
 
-  override val isActive: Boolean
-    get() = isAdded
+  override val isActive = isAdded
 
   companion object {
     val ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID"

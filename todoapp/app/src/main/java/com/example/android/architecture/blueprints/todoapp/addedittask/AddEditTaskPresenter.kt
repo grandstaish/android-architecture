@@ -37,13 +37,13 @@ class AddEditTaskPresenter(
   }
 
   override fun start() {
-    if (!isNewTask && isDataMissing) {
+    if (taskId != null && isDataMissing) {
       populateTask()
     }
   }
 
   override fun saveTask(title: String, description: String) {
-    if (isNewTask) {
+    if (taskId == null) {
       createTask(title, description)
     } else {
       updateTask(title, description)
@@ -51,10 +51,10 @@ class AddEditTaskPresenter(
   }
 
   override fun populateTask() {
-    if (isNewTask) {
+    if (taskId == null) {
       throw RuntimeException("populateTask() was called but task is new.")
     }
-    tasksRepository.getTask(taskId!!, this)
+    tasksRepository.getTask(taskId, this)
   }
 
   override fun onTaskLoaded(task: Task) {
@@ -73,9 +73,6 @@ class AddEditTaskPresenter(
     }
   }
 
-  private val isNewTask: Boolean
-    get() = taskId == null
-
   private fun createTask(title: String, description: String) {
     val newTask = Task(title, description)
     if (newTask.isEmpty) {
@@ -87,10 +84,10 @@ class AddEditTaskPresenter(
   }
 
   private fun updateTask(title: String, description: String) {
-    if (isNewTask) {
+    if (taskId == null) {
       throw RuntimeException("updateTask() was called but task is new.")
     }
-    tasksRepository.saveTask(Task(title, description, id = taskId!!))
+    tasksRepository.saveTask(Task(title, id = taskId, description = description))
     addTaskView.showTasksList() // After an edit, go back to the list.
   }
 }
