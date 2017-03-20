@@ -92,7 +92,7 @@ public class TasksRepositoryTest {
         MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
-        mTasksRepository = TasksRepository.Companion.getInstance(
+        mTasksRepository = TasksRepository.getInstance(
                 mTasksRemoteDataSource, mTasksLocalDataSource);
     }
 

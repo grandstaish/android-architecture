@@ -16,7 +16,6 @@
 
 package com.example.android.architecture.blueprints.todoapp.data.source
 
-import android.support.annotation.VisibleForTesting
 import com.example.android.architecture.blueprints.todoapp.data.Task
 
 import java.util.ArrayList
@@ -33,7 +32,6 @@ class TasksRepository private constructor(
     private val tasksLocalDataSource: TasksDataSource)
   : TasksDataSource {
 
-  @VisibleForTesting
   var cachedTasks : MutableMap<String, Task>? = null
     private set
 
@@ -41,7 +39,7 @@ class TasksRepository private constructor(
    * Marks the cache as invalid, to force an update the next time data is requested. This variable
    * has package local visibility so it can be accessed from tests.
    */
-  private var cacheIsDirty: Boolean = false
+  private var cacheIsDirty = false
 
   /**
    * Gets tasks from cache, local data source (SQLite) or remote data source, whichever is
@@ -229,6 +227,7 @@ class TasksRepository private constructor(
      * @param tasksLocalDataSource  the device storage data source
      * @return the [TasksRepository] instance
      */
+    @JvmStatic
     fun getInstance(tasksRemoteDataSource: TasksDataSource, tasksLocalDataSource: TasksDataSource)
         : TasksRepository {
       return INSTANCE
