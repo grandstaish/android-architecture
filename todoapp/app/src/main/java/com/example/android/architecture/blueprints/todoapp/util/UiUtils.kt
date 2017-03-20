@@ -48,6 +48,7 @@ fun View?.compatCanScrollUp() : Boolean {
   return ViewCompat.canScrollVertically(this, -1)
 }
 
+fun Fragment.compatGetColor(@ColorRes id: Int) = activity.compatGetColor(id)
 fun Context.compatGetColor(@ColorRes id: Int) = ContextCompat.getColor(this, id)
 fun Context.compatGetDrawable(@DrawableRes id: Int) = ContextCompat.getDrawable(this, id)!!
 

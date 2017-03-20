@@ -88,9 +88,9 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     // Set up progress indicator
     refreshLayout.setColorSchemeColors(
-        activity.compatGetColor(R.color.colorPrimary),
-        activity.compatGetColor(R.color.colorAccent),
-        activity.compatGetColor(R.color.colorPrimaryDark))
+        compatGetColor(R.color.colorPrimary),
+        compatGetColor(R.color.colorAccent),
+        compatGetColor(R.color.colorPrimaryDark))
 
     // Set the scrolling view in the custom SwipeRefreshLayout.
     refreshLayout.scrollUpChild = tasksLL
@@ -204,8 +204,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     view.showSnackbar(getString(R.string.loading_tasks_error))
   }
 
-  override val isActive: Boolean
-    get() = isAdded
+  override val isActive = isAdded
 
   private val itemListener: TaskItemListener = object : TaskItemListener {
     override fun onTaskClick(clickedTask: Task) {
