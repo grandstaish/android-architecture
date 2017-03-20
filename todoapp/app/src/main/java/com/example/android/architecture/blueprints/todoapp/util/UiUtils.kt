@@ -49,9 +49,14 @@ fun View?.compatCanScrollUp() : Boolean {
   return ViewCompat.canScrollVertically(this, -1)
 }
 
+//@JvmName("setString")
 fun Bundle.set(value : Pair<String, String>) {
   putString(value.first, value.second)
 }
+//@JvmName("setInt")
+//fun Bundle.set(value : Pair<String, Int>) {
+//  putInt(value.first, value.second)
+//}
 
 fun Fragment.compatGetColor(@ColorRes id: Int) = activity.compatGetColor(id)
 fun Context.compatGetColor(@ColorRes id: Int) = ContextCompat.getColor(this, id)

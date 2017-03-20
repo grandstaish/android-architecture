@@ -57,6 +57,8 @@ class AddEditTaskActivity : AppCompatActivity() {
       taskId?.let { taskId ->
         result.arguments = Bundle().apply {
           set(ARGUMENT_EDIT_TASK_ID to taskId)
+//          set("mykey" to 3)
+//          set("myotherkey" to 100)
         }
       }
       addFragment(result, id)
