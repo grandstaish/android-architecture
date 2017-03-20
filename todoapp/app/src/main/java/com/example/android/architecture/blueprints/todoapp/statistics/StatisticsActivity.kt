@@ -42,7 +42,7 @@ class StatisticsActivity : AppCompatActivity() {
 
     // Set up the toolbar.
     setSupportActionBar(toolbar)
-    supportActionBar!!.apply {
+    supportActionBar?.apply {
       setTitle(R.string.statistics_title)
       setHomeAsUpIndicator(R.drawable.ic_menu)
       setDisplayHomeAsUpEnabled(true)
@@ -52,7 +52,7 @@ class StatisticsActivity : AppCompatActivity() {
     drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark)
     navigationView?.let { setupDrawerContent(it) }
 
-    val statisticsFragment: StatisticsFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
+    val statisticsFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
       addFragment(StatisticsFragment.newInstance(), id)
     }
 

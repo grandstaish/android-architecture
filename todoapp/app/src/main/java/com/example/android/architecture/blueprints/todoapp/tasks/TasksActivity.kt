@@ -39,7 +39,7 @@ class TasksActivity : AppCompatActivity() {
 
     // Set up the toolbar.
     setSupportActionBar(toolbar)
-    supportActionBar!!.apply {
+    supportActionBar?.apply {
       setHomeAsUpIndicator(R.drawable.ic_menu)
       setDisplayHomeAsUpEnabled(true)
     }
@@ -49,7 +49,7 @@ class TasksActivity : AppCompatActivity() {
     navigationView?.let { setupDrawerContent(it) }
 
     // Get the existing fragment, or create and add a new one.
-    val tasksFragment: TasksFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
+    val tasksFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
       addFragment(TasksFragment.newInstance(), id)
     }
 

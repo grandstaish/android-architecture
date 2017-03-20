@@ -37,7 +37,7 @@ class TaskDetailActivity : AppCompatActivity() {
 
     // Set up the toolbar.
     setSupportActionBar(toolbar)
-    supportActionBar!!.apply {
+    supportActionBar?.apply {
       setDisplayHomeAsUpEnabled(true)
       setDisplayShowHomeEnabled(true)
     }
@@ -45,7 +45,7 @@ class TaskDetailActivity : AppCompatActivity() {
     // Get the requested task id
     val taskId = intent.getStringExtra(EXTRA_TASK_ID)
 
-    val detailFragment: TaskDetailFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
+    val detailFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
       addFragment(TaskDetailFragment.newInstance(taskId), id)
     }
 

@@ -42,14 +42,14 @@ class AddEditTaskActivity : AppCompatActivity() {
 
     // Set up the toolbar.
     setSupportActionBar(toolbar)
-    supportActionBar!!.apply {
+    supportActionBar?.apply {
       setDisplayHomeAsUpEnabled(true)
       setDisplayShowHomeEnabled(true)
     }
 
     val taskId = intent.getStringExtra(ARGUMENT_EDIT_TASK_ID)
 
-    val addEditTaskFragment: AddEditTaskFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
+    val addEditTaskFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
       val result = AddEditTaskFragment.newInstance()
       if (intent.hasExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID)) {
         actionBar.setTitle(R.string.edit_task)
