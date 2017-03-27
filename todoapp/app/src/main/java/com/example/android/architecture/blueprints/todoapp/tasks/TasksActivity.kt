@@ -49,8 +49,8 @@ class TasksActivity : AppCompatActivity() {
     navigationView?.let { setupDrawerContent(it) }
 
     // Get the existing fragment, or create and add a new one.
-    val tasksFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
-      addFragment(TasksFragment.newInstance(), id)
+    val tasksFragment = supportFragmentManager.getOrInit(R.id.contentFrame) { id ->
+      addFragmentToActivity(TasksFragment.newInstance(), id)
     }
 
     // Create the presenter

@@ -21,8 +21,8 @@ import android.support.v7.app.AppCompatActivity
 
 import com.example.android.architecture.blueprints.todoapp.Injection.provideTasksRepository
 import com.example.android.architecture.blueprints.todoapp.R
-import com.example.android.architecture.blueprints.todoapp.util.addFragment
-import com.example.android.architecture.blueprints.todoapp.util.getOrElse
+import com.example.android.architecture.blueprints.todoapp.util.addFragmentToActivity
+import com.example.android.architecture.blueprints.todoapp.util.getOrInit
 import kotlinx.android.synthetic.main.taskdetail_act.*
 
 /**
@@ -45,8 +45,8 @@ class TaskDetailActivity : AppCompatActivity() {
     // Get the requested task id
     val taskId = intent.getStringExtra(EXTRA_TASK_ID)
 
-    val detailFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
-      addFragment(TaskDetailFragment.newInstance(taskId), id)
+    val detailFragment = supportFragmentManager.getOrInit(R.id.contentFrame) { id ->
+      addFragmentToActivity(TaskDetailFragment.newInstance(taskId), id)
     }
 
     // Create the presenter

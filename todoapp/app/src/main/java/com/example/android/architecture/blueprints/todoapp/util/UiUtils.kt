@@ -33,7 +33,7 @@ import android.view.View
  * The `fragment` is added to the container view with id `frameId`. The operation is
  * performed by the `fragmentManager`.
  */
-fun <T: Fragment> FragmentManager.addFragment(fragment: T, frameId: Int): T {
+fun <T: Fragment> FragmentManager.addFragmentToActivity(fragment: T, frameId: Int): T {
   val transaction = this.beginTransaction()
   transaction.add(frameId, fragment)
   transaction.commit()
@@ -41,8 +41,8 @@ fun <T: Fragment> FragmentManager.addFragment(fragment: T, frameId: Int): T {
 }
 
 @Suppress("UNCHECKED_CAST") // Cleaner calling code.
-inline fun <T: Fragment> FragmentManager.getOrElse(@IdRes id: Int, f: FragmentManager.(Int) -> (T)) : T {
-  return (this.findFragmentById(id) ?: f(id)) as T
+inline fun <T: Fragment> FragmentManager.getOrInit(@IdRes id: Int, initializer: FragmentManager.(Int) -> (T)) : T {
+  return (findFragmentById(id) ?: initializer(id)) as T
 }
 
 fun View?.compatCanScrollUp() : Boolean {

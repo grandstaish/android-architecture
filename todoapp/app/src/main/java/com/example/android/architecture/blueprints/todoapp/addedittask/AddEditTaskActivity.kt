@@ -25,8 +25,8 @@ import com.example.android.architecture.blueprints.todoapp.Injection.provideTask
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskFragment.Companion.ARGUMENT_EDIT_TASK_ID
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
-import com.example.android.architecture.blueprints.todoapp.util.addFragment
-import com.example.android.architecture.blueprints.todoapp.util.getOrElse
+import com.example.android.architecture.blueprints.todoapp.util.addFragmentToActivity
+import com.example.android.architecture.blueprints.todoapp.util.getOrInit
 import com.example.android.architecture.blueprints.todoapp.util.set
 import kotlinx.android.synthetic.main.addtask_act.*
 
@@ -50,7 +50,7 @@ class AddEditTaskActivity : AppCompatActivity() {
 
     val taskId : String? = intent.getStringExtra(ARGUMENT_EDIT_TASK_ID)
 
-    val addEditTaskFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
+    val addEditTaskFragment = supportFragmentManager.getOrInit(R.id.contentFrame) { id ->
       val result = AddEditTaskFragment.newInstance()
       val title = if (taskId == null) R.string.edit_task else R.string.add_task
       actionBar.setTitle(title)
@@ -61,7 +61,7 @@ class AddEditTaskActivity : AppCompatActivity() {
 //          set("myotherkey" to 100)
         }
       }
-      addFragment(result, id)
+      addFragmentToActivity(result, id)
     }
 
     val shouldLoadDataFromRepo = savedInstanceState?.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY) ?: true

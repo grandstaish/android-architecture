@@ -26,8 +26,8 @@ import android.view.MenuItem
 import com.example.android.architecture.blueprints.todoapp.Injection.provideTasksRepository
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
-import com.example.android.architecture.blueprints.todoapp.util.addFragment
-import com.example.android.architecture.blueprints.todoapp.util.getOrElse
+import com.example.android.architecture.blueprints.todoapp.util.addFragmentToActivity
+import com.example.android.architecture.blueprints.todoapp.util.getOrInit
 import kotlinx.android.synthetic.main.statistics_act.*
 
 /**
@@ -52,8 +52,8 @@ class StatisticsActivity : AppCompatActivity() {
     drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark)
     navigationView?.let { setupDrawerContent(it) }
 
-    val statisticsFragment = supportFragmentManager.getOrElse(R.id.contentFrame) { id ->
-      addFragment(StatisticsFragment.newInstance(), id)
+    val statisticsFragment = supportFragmentManager.getOrInit(R.id.contentFrame) { id ->
+      addFragmentToActivity(StatisticsFragment.newInstance(), id)
     }
 
     StatisticsPresenter(provideTasksRepository(applicationContext), statisticsFragment)
